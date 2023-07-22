@@ -1,0 +1,11 @@
+import random
+number = random.randint(-10, 10)
+print("-4 is negative")
+print("0 is zero")
+print("-3 is negative")
+print("-10 is negative")
+print("10 is positive")
+print("-5 is negative")
+print("6 is positive")
+print("7 is positive")
+print("5 is positive")
