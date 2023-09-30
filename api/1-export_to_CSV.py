@@ -42,7 +42,7 @@ def fetch_tasks(user_id):
 
 # Function to export tasks to a CSV file
 def export_to_csv(user_id, tasks):
-    filename = f"{user_id}.csv"
+    filename = f"{USER_ID}.csv"
     with open(filename, mode='w', newline='') as csv_file:
         fieldnames = ["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"]
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
@@ -70,5 +70,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
     tasks = fetch_tasks(user_id)
-    export_to_csv(user_id, tasks)
-    print(f"Data exported to {user_id}.csv")
+    export_to_csv(USER_ID, tasks)
+    print(f"Data exported to {USER_ID}.csv")
