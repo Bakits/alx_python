@@ -30,6 +30,12 @@ def python1(text= 'is cool') :
 def number(n) :
         return ("{} is a number".format(n) )
 
+@app.route("/number_template/<int:n>", strict_slashes=False)
+def numbers(n) :
+     return render_template('5-number.html', num=n)
+
+
+
 if __name__ == "__main__":
 
     app.run(debug=True, host="0.0.0.0",port="5000")

@@ -1,26 +1,32 @@
-#!/usr/bin/python3
-"""a script that starts a Flask web application:
+#! /usr/bin/python3
 """
-from flask import Flask
+    basic
+"""
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route("/", strict_slashes=False)
-def hello():
-    return "Hello HBNB!"
+def home() :
+    return "Hello HBNB!" 
+
 @app.route("/hbnb", strict_slashes=False)
-def hbn():
-    return "HBNB"
+def HBNB() :
+    return "HBNB" 
 
 @app.route("/c/<text>", strict_slashes=False)
-def c(text):
-    return "C %s" % text
+def C(text) :
+    return ("C {}".format(text.replace('_',' ')) )
 
-@app.route("/python", strict_slashes=False)
-@app.route("/python/text/<int:text>", strict_slashes=False)
-def python(text = "is cool"):
-    return "Python_%s" % text
+@app.route("/python/<text>", strict_slashes=False)
+def python(text= 'is cool') :
+    return ("Python {}".format(text.replace('_',' ')) )
+
+@app.route("/python/", strict_slashes=False)
+def python1(text= 'is cool') :
+    return ("Python {}".format(text.replace('_',' ')) )
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+
+    app.run(debug=True, host="0.0.0.0",port="5000")
