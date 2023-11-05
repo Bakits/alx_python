@@ -1,16 +1,27 @@
-#!/usr/bin/python3
-Square = __import__("0-square").Square
+"""
+A class representing a square.
+"""
 
-my_square = Square(3)
-print(type(my_square))
-print(my_square.__dict__)
 
-try:
-    print(my_square.size)
-except Exception as e:
-    print(e)
+class Square:
+    """
+    A class representing a square.
 
-try:
-    print(my_square.__size)
-except Exception as e:
-    print(e)
+    Attributes:
+        __size (int): The size of the square (private attribute).
+    """
+
+    def __init__(self, size):
+        """
+        Initializes a new Square instance.
+
+        Args:
+            size (int): The size of the square.
+
+        Raises:
+            None.
+
+        Returns:
+            None.
+        """
+        self.__size = size
