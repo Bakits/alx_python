@@ -1,40 +1,54 @@
 import json
 import requests
 
-# Function to fetch tasks for a given user ID
-def fetch_user_tasks(user_id):
-    todos_url = f"https://jsonplaceholder.typicode.com/users/{user_id}/todos"
+
+def fetch_employee_todo_progress(employee_id):
+    # Fetch employee's TODO list
+    todos_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
     todos_response = requests.get(todos_url)
+
     if todos_response.status_code != 200:
-        return []  # Return an empty list if there was an error
+        print(f"Unable to fetch TODO list for employee with ID {employee_id}.")
+        return []
+
     return todos_response.json()
 
-# Function to fetch all user IDs
-def fetch_user_ids():
-    users_url = "https://jsonplaceholder.typicode.com/users"
-    users_response = requests.get(users_url)
-    if users_response.status_code != 200:
-        return []  # Return an empty list if there was an error
-    return [user["id"] for user in users_response.json()]
 
-# Function to export data in JSON format for all tasks from all employees
-def export_todo_all_employees():
+def export_todo_all_employees_to_json():
     all_employee_data = {}
 
-    user_ids = fetch_user_ids()
-    for user_id in user_ids:
-        user_tasks = fetch_user_tasks(user_id)
-        employee_name = user_tasks[0]["username"] if user_tasks else "Unknown Employee"
-        
-        #a list of tasks for the current user
-        employee_tasks = [{"username": employee_name, "task": task["title"], "completed": task["completed"]} for task in user_tasks]
-        
-        
-        all_employee_data[user_id] = employee_tasks
+    # Fetch TODO progress for all employees (assuming employee IDs are consecutive integers)
+    for employee_id in range(1, 11):  # Assuming 10 employees with IDs from 1 to 10
+        todos_data = fetch_employee_todo_progress(employee_id)
 
-    # Export data to JSON file
-    with open("todo_all_employees.json", "w") as json_file:
+        # Fetch employee details
+        employee_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+        employee_response = requests.get(employee_url)
+
+        if employee_response.status_code == 200:
+            employee_data = employee_response.json()
+            employee_username = employee_data['username']
+
+            # Create a list to store tasks for the employee
+            employee_tasks = []
+
+            # Iterate through the tasks and transform them
+            for task in todos_data:
+                task_data = {
+                    "username": employee_username,
+                    "task": task["title"],
+                    "completed": task["completed"]
+                }
+                employee_tasks.append(task_data)
+
+            # Store the employee's tasks in the dictionary under their ID
+            all_employee_data[str(employee_id)] = employee_tasks
+
+    # Create JSON file and write data for all employees
+    json_filename = "todo_all_employees.json"
+    with open(json_filename, 'w') as json_file:
         json.dump(all_employee_data, json_file, indent=4)
 
+
 if __name__ == "__main__":
-    export_todo_all_employees()
+    export_todo_all_employees_to_json()

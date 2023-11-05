@@ -1,37 +1,21 @@
+#!/usr/bin/python3
+'''
+export data in the CSV format
+'''
+
 import csv
 import requests
-import sys
+from sys import argv
 
-if len(sys.argv) != 2:
-    sys.exit(1)
-
-employee_id = int(sys.argv[1])
-
-employee_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-todos_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-
-employee_response = requests.get(employee_url)
-todos_response = requests.get(todos_url)
-
-if employee_response.status_code != 200 or todos_response.status_code != 200:
-    sys.exit(1)
-
-employee_data = employee_response.json()
-todo_data = todos_response.json()
-employee_name = employee_data.get("name", "unknown employee")
-employee_username = employee_data.get("username", "unkown employee")
-
-csv_filename = f"{employee_id}.csv"
-
-with open(csv_filename, mode="w", newline="") as csv_file:
-    csv_writer = csv.writer(csv_file)
-
-    csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-
-for task in todo_data:
-        task_completed_status = "Completed" if task["completed"] else "Not Completed"
-        csv_writer.writerow([employee_id, employee_username, task_completed_status, task["title"]])
-
-
-with open(csv_filename, 'r') as f:
-     pass
+if __name__ == '__main__':
+    uid = argv[1]
+    url = "https://jsonplaceholder.typicode.com/users/{}".format(uid)
+    user = requests.get(url).json()
+    url = "https://jsonplaceholder.typicode.com/todos?userId={}".format(uid)
+    todo = requests.get(url).json()
+    with open("{}.csv".format(uid), 'w', newline='') as csvfile:
+        taskwriter = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+        for t in todo:
+            taskwriter.writerow([int(uid), user.get('username'),
+                                 t.get('completed'),
+                                 t.get('title')])
