@@ -1,22 +1,49 @@
-"""
-A class for checking if an object is an instance of the specified class.
-"""
+#!/usr/bin/python3
+'''
+Write a class Square that defines a square by: (based on 3-square.py)
 
+Private instance attribute: size:
+property def size(self): to retrieve it
+property setter def size(self, value): to set it:
+size must be an integer, otherwise raise a TypeError exception with the message size must be an integer
+if size is less than 0, raise a ValueError exception with the message size must be >= 0
+Instantiation with optional size: def __init__(self, size=0):
+Public instance method: def area(self): that returns the current square area
+Public instance method: def my_print(self): that prints in stdout the square with the character #:
+if size is equal to 0, print an empty line
+You are not allowed to import any module
+'''
 
-class TypeChecker:
-    """
-    A class for checking if an object is an instance of the specified class.
-    """
+class Square:
+    "building a class that binds a self int"
 
-    def is_same_class(self, obj, a_class):
-        """
-        Check if the object is exactly an instance of the specified class.
+    def __init__(self, size=0):
+        
+        self.__size = size
 
-        Args:
-            obj: The object to check.
-            a_class: The class to compare the object with.
+    @property
+    def size(self):
+        """Retrieve the size of the square."""
+        return self.__size
 
-        Returns:
-            bool: True if the object is an instance of the specified class, False otherwise.
-        """
-        return type(obj) is a_class
+    @size.setter
+    def size(self, value):
+        """Set the size of the square."""
+        if not isinstance(value, int):
+            raise TypeError("size must be an integer")
+        if value < 0:
+            raise ValueError("size must be >= 0")
+        self.__size = value
+
+    def area(self):
+        """Returns the current square area."""
+        return self.__size * self.__size
+
+    def my_print(self):
+        """Prints the square with the character #."""
+        if self.__size == 0:
+            print()
+            return
+
+        for _ in range(self.__size):
+            print("#" * self.__size)
