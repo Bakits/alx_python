@@ -1,17 +1,36 @@
 #!/usr/bin/python3
-"""  lists all states from the database hbtn_0e_0_usa """
-import MySQLdb
 import sys
+import MySQLdb
 
+# take in arguments: mysql username, mysql password, database name, state name searched
+mysql_username = sys.argv[1]
+mysql_password = sys.argv[2]
+database_name = sys.argv[3]
+state_name = sys.argv[4]
 
-if __name__ == "__main__":
-    db = MySQLdb.connect(
-        "localhost", user=sys.argv[1], password=sys.argv[2], db=sys.argv[3], port=3306
-    )
-    cur = db.cursor()
-    cur.execute("SELECT * FROM states WHERE name LIKE %s", (sys.argv[4],))
-    rows = cur.fetchall()
-    for row in rows:
-        print(row)
-    cur.close()
-    db.close()
+# connect to MySQL server running on localhost at port 3306
+db = MySQLdb.connect(
+    host="localhost",
+    port=3306,
+    user=mysql_username,
+    passwd=mysql_password,
+    db=database_name,
+    charset="utf8"
+)
+
+# execute SQL query safely using parameterized queries
+cur = db.cursor()
+sql_query = "SELECT * FROM states WHERE name=%s ORDER BY id ASC"
+params = (state_name,)
+cur.execute(sql_query, params)
+
+# fetch all the rows in a list of lists.
+rows = cur.fetchall()
+
+# display results
+for row in rows:
+    print(row)
+
+# close all cursors and databases
+cur.close()
+db.close()

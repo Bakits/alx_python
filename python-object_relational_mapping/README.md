@@ -1,1 +1,1 @@
-Python relational mapping
+Py relational mapping
