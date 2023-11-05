@@ -1,65 +1,22 @@
 #!/usr/bin/python3
-"""A class representing a rectangle, inheriting from BaseGeometry."""
-BaseGeometry = __import__("5-base_geometry").BaseGeometry
+""" Inherits from BaseGeometry """
+BaseGeometry = __import__('5-base_geometry').BaseGeometry
 
 
 class Rectangle(BaseGeometry):
-    """
-    A class representing a rectangle, inheriting from BaseGeometry.
-
-    This class inherits from the BaseGeometry class and provides functionality to represent a rectangle.
-    It includes validation for positive integer values for width and height.
-
-    Attributes:
-        __width (int): The width of the rectangle (private attribute).
-        __height (int): The height of the rectangle (private attribute).
-
-    Methods:
-        __init__(self, width, height):
-            Initializes a new Rectangle object with the given width and height.
-
-        area(self):
-            Calculate the area of the rectangle.
-
-        __str__(self):
-            Returns a string representation of the Rectangle in the format [Rectangle] width/height.
-
-    """
-
+    """ A class to define a rectangle using base geometry. """
     def __init__(self, width, height):
-        """
-        Initializes a new Rectangle object with the given width and height.
-
-        Args:
-            width (int): The width of the rectangle.
-            height (int): The height of the rectangle.
-
-        Raises:
-            TypeError: If either width or height is not an integer.
-            ValueError: If either width or height is not a positive integer.
-
-        """
+        """ initialize a new rectangle """
+        super().integer_validator("width", width)
         self.__width = width
+        super().integer_validator("height", height)
         self.__height = height
-        self.integer_validator("width", width)
-        self.integer_validator("height", height)
-
     def area(self):
-        """
-        Calculate the area of the rectangle.
-
-        Returns:
-            int: The area of the rectangle (width * height).
-
-        """
+        """ Returns the area of the rectangle """
         return self.__width * self.__height
-
     def __str__(self):
-        """
-        Returns a string representation of the Rectangle in the format [Rectangle] width/height.
+        """ Returns the print() and str() representation of rectangle """
+        string = "[" + str(self.__class__.__name__) + "] "
+        string += str(self.__width) + "/" + str(self.__height)
+        return string
 
-        Returns:
-            str: The string representation of the Rectangle object.
-
-        """
-        return "[Rectangle] {}/{}".format(self.__width, self.__height)

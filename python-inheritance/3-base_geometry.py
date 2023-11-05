@@ -1,19 +1,24 @@
-#!/usr/bin/python3
-"""An empty base class for representing geometric entities."""
+#!/usr/bin/env/python3
+""" 
+       Write an empty class BaseGeometry.
 
+You are not allowed to import any module
+"""
+class TypeMetaClass(type):
+    "building a class that returns type of object to be class"
 
-class BaseGeometry:
-    """
-    An empty base class for representing geometric entities.
+    def __dir__(cls) -> None:
+        
+        attributes = super().__dir__()
 
-    This class serves as a base class that other classes can inherit from to
-    define specific geometric entities and their behavior.
-
-    Attributes:
-        None
-
-    Methods:
-        None
-    """
+        return [attribute for attribute in attributes if attribute != '__init_subclass__']
+class BaseGeometry(metaclass=TypeMetaClass):
+    "building a class that returns the geometry"
 
     pass
+
+    def __dir__(cls) -> None:
+        
+        attributes = super().__dir__()
+
+        return [attribute for attribute in attributes if attribute != '__init_subclass__']

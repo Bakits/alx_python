@@ -1,17 +1,11 @@
-#!/usr/bin/python3
-"""Check if the object's class is a subclass of the specified class"""
+#!/usr/bin/env/python3
+"""
+Write a function that returns True if the object is an instance of a class that inherited (directly or indirectly) from the specified class ; otherwise False.
 
-
+Prototype: def inherits_from(obj, a_class):
+You are not allowed to import any module
+"""
 def inherits_from(obj, a_class):
-    """Check if an object is an instance of a class that inherited (directly or indirectly)
-    from the specified class.
+    "building a class that returns type of object to be class"
 
-    Args:
-        obj: The object to be checked.
-        a_class: The class to check against.
-
-    Returns:
-        bool: True if the object is an instance of a class that inherited from the specified class,
-              otherwise False.
-    """
-    return isinstance(obj, a_class) and type(obj) != a_class
+    return isinstance(obj, a_class) and type(obj) is not a_class

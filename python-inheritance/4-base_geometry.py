@@ -1,33 +1,23 @@
-#!/usr/bin/python3
-"""A base class for representing geometric entities."""
+#!/usr/bin/env/python3
+"""
+Write a class BaseGeometry (based on 3-base_geometry.py).
+
+Public instance method: def area(self): that raises an Exception with the message area() is not implemented
+You are not allowed to import any module
+"""
 
 
-class BaseGeometry:
-    """
-    A base class for representing geometric entities.
+class TypeMetaClass(type):
+    "building a class that returns type of object to be class"
+    def __dir__(cls) -> None:
+        
+        attributes = super().__dir__()
 
-    This class serves as a base class that other classes can inherit from to define specific
-    geometric entities and their behavior.
+        return [attribute for attribute in attributes if attribute != '__init_subclass__']
 
-    Attributes:
-        None
-
-    Methods:
-        area(self):
-            This method is not implemented in the base class and must be overridden in subclasses.
-            It raises an Exception indicating that the specific implementation of area() is missing.
-    """
-
+class BaseGeometry(metaclass=TypeMetaClass):
+    "building a class that returns type of object to be class"
     def area(self):
-        """
-        Calculate the area of the geometric entity.
-
-        Raises:
-            Exception: Since the method is not implemented in the base class,
-                      this exception is raised to indicate that the specific
-                      implementation of area() is missing.
-
-        Returns:
-            None: The method does not return any value as it is meant to be overridden.
-        """
+        
         raise Exception("area() is not implemented")
+

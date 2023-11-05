@@ -1,49 +1,25 @@
-#!/usr/bin/python3
-"""A base class for representing geometric entities."""
+#!/usr/bin/env/python3
+"""
+Write a class BaseGeometry (based on 4-base_geometry.py).
 
-
+Public instance method: def area(self): that raises an Exception with the message area() is not implemented
+Public instance method: def integer_validator(self, name, value): that validates value:
+you can assume name is always a string
+if value is not an integer: raise a TypeError exception, with the message <name> must be an integer
+if value is less or equal to 0: raise a ValueError exception with the message <name> must be greater than 0
+You are not allowed to import any module
+"""
 class BaseGeometry:
     """
-    A base class for representing geometric entities.
-
-    This class serves as a base class that other classes can inherit from to define specific
-    geometric entities and their behavior.
-
-    Attributes:
-        None
-
-    Methods:
-        area(self):
-            This method is not implemented in the base class and must be overridden in subclasses.
-            It raises an Exception indicating that the specific implementation of area() is missing.
-
-        integer_validator(self, name, value):
-            Validates the given value as an integer for a specific attribute.
-
-            Args:
-                name (str): The name of the attribute being validated.
-                value (int): The value to be validated as an integer.
-
-            Raises:
-                TypeError: If the value is not an integer, raises a TypeError with a descriptive message.
-                ValueError: If the value is less than or equal to zero, raises a ValueError with a descriptive message.
+    A geometry class.
     """
 
     def area(self):
+        
         raise Exception("area() is not implemented")
 
     def integer_validator(self, name, value):
-        """
-        Validate the given value as an integer for a specific attribute.
-
-        Args:
-            name (str): The name of the attribute being validated.
-            value (int): The value to be validated as an integer.
-
-        Raises:
-            TypeError: If the value is not an integer, raises a TypeError with a descriptive message.
-            ValueError: If the value is less than or equal to zero, raises a ValueError with a descriptive message.
-        """
+        
         if not isinstance(value, int):
             raise TypeError(f"{name} must be an integer")
         if value <= 0:
